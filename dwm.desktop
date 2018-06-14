@@ -1,0 +1,6 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=dwm
+Comment=Runs dwm
+Exec=/etc/X11/Xsession
+Type=Application

@@ -1,0 +1,46 @@
+#!/bin/sh
+
+# reset the getopts in case it was used
+OPTIND=1
+
+ARGS=""
+
+while getopts s:r: opt
+do
+    case "$opt" in
+        s)
+            ARGS="$ARGS -s $OPTARG"
+            ;;
+        r)
+            ARGS="$ARGS -r $OPTARG"
+            ;;
+        \?)
+            exit 0
+            ;;
+        :)
+            exit 0
+            ;;
+    esac
+done
+
+shift $((OPTIND-1))
+
+# if there are arguments change the display
+if [ ${#ARGS} -ne 0 ]
+then
+    # turn vsync off
+    kill $(pgrep compton)
+    # change the display settings
+    xrandr $ARGS
+    # turn vsync back on
+    compton --backend glx --vsync opengl-oml &
+    # restart the background
+    $HOME/.fehbg
+fi
+
+LINE=$(xrandr --query | grep \* )
+RES=$(echo $LINE | grep -o -E [[:digit:]]*x[[:digit:]]*)
+FPS=$(echo $LINE | grep -o -E [[:digit:]]+[[:punct:]][[:digit:]]+[[:punct:]] |\
+        grep -o -E [[:digit:]]+[[:punct:]][[:digit:]]+)
+
+echo "Display is currently $RES@$FPS""Hz"

@@ -1,0 +1,25 @@
+#!/bin/sh
+
+OPTIND=1
+
+while getopts str opt
+do
+    case "$opt" in
+        s)
+            service mongod start
+            ;;
+        t)
+            service mongod stop
+            ;;
+        r)
+            service mongod restart
+            ;;
+        \?)
+            echo "-s for start, -t for terminate -r for restart"
+            ;;
+    esac
+done
+
+shift $((OPTIND-1))
+
+exit
