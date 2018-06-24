@@ -33,7 +33,7 @@ then
     # change the display settings
     xrandr $ARGS
     # turn vsync back on
-    compton --backend glx --vsync opengl-oml &
+    compton --config &
     # restart the background
     $HOME/.fehbg
 fi

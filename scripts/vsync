@@ -2,7 +2,7 @@
 
 if [ "$1" = "on" ]
 then
-    compton --backend glx --vsync opengl-mswc &
+    compton --config &
 elif [ "$1" = "off" ]
 then
     kill $(pgrep compton)

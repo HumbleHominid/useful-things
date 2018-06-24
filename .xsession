@@ -4,7 +4,7 @@
 xrdb -merge .Xresources
 
 # start the window compositor
-compton -b --vsync opengl
+compton --config &
 
 # setting feh to do a slideshow but scalling the bg fucks it up hard so have to
 # do this instead
