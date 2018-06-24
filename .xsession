@@ -14,9 +14,6 @@ do
     sleep 900s
 done &
 
-# start things i probably want on start up
-discord &
-
 # set up the name bar
 # NOTE: Do not do xrandr in here. You get microstutters. Remember?
 while true

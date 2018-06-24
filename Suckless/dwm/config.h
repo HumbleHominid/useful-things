@@ -1,14 +1,14 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int borderpx  = 0;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int gappx              = 50;       /* gap for when in tile mode */
+static const int gappx              = 25;       /* gap for when in tile mode */
 static const int minwsz             = 100;      /* min winsize for smfact */
-static const char *fonts[]          = { "monospace:size=14" };
-static const char dmenufont[]       = "monospace:size=14";
+static const char *fonts[]          = { "monospace:size=12" };
+static const char dmenufont[]       = "monospace:size=12";
 static const char col_black[]       = "#595f6d";
 static const char col_white[]       = "#f3f1ee";
 static const char col_cyan[]        = "#95dbde";
