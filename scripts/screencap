@@ -1,0 +1,11 @@
+#!/bin/bash
+
+FILE="$(date +%Y-%m-%d-%T).png"
+SH_PATH="$HOME/Pictures/Screenshots"
+
+if [ ! -d $SH_PATH ]
+then
+    mkdir $SH_PATH
+fi
+
+import $SH_PATH/$FILE

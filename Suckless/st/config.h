@@ -132,7 +132,7 @@ static unsigned int defaultrcs = 259;
 static unsigned int cursorshape = 2;
 
 /* bg opacity */
-unsigned int alpha = 0xda; // this is 85%
+unsigned int alpha = 0xff; // 0xda is 85%
 
 /*
  * Default columns and rows numbers
