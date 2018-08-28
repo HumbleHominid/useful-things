@@ -1,0 +1,29 @@
+#!/bin/sh
+
+OPTIND=1
+
+ARGS=""
+
+while getopts dmu opt
+do
+    case "$opt" in
+        d)
+            amixer -D pulse sset Master 5%-
+            ;;
+        u)
+            amixer -D pulse sset Master 5%+
+            ;;
+        \?)
+            exit 0
+            ;;
+    esac
+done
+
+shift $((OPTINID-1))
+
+if [ ${#ARGS} -ne 0 ]
+then
+
+else
+    exit 1
+fi
