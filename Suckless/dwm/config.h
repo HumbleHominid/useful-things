@@ -57,29 +57,33 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_black, "-sb", col_black, "-sf", col_black, NULL };
-static const char *termcmd[]  = { "st", NULL };
-static const char *browsercmd[] = { "firefox", NULL };
-static const char *screencap[] = { "screencap", NULL };
-static const char *voldown[] = { "volume", "-d", NULL };
-static const char *volup[] = { "volume", "-u", NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn",
+        dmenufont, "-nb", col_black, "-nf", col_white, "-sb", col_cyan,
+        "-sf", col_black, NULL };
+static const char *terminal_command[]  = { "st", NULL };
+static const char *screencap_command[] = { "screencap_command", NULL };
+static const char *volume_mute_command[] = { "volume", "-m", NULL };
+static const char *volume_down_command[] = { "volume", "-d", NULL };
+static const char *volume_up_command[] = { "volume", "-u", NULL };
+static const char *change_to_qwerty_command[] = { "asht" , NULL };
+static const char *change_to_workman_command[] = { "asdf", NULL };
 
 static Key keys[] = {
     /* modifier                     key        function        argument */
-    { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = screencap } },
+    { MODKEY|ShiftMask,             XK_a,   spawn,          {.v = change_to_qwerty_command } },
+    { MODKEY|ShiftMask,             XK_a,   spawn,          {.v = change_to_workman_command } },
+    { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = screencap_command } },
     { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-    { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-    { MODKEY|ControlMask,           XK_Return, spawn,          {.v = browsercmd } },
-    { MODKEY|ControlMask,           XK_minus,  spawn,          {.v = voldown } },
-    { MODKEY|ControlMask,           XK_equal,  spawn,          {.v = volup } },
+    { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = terminal_command } },
+    { MODKEY|ControlMask,           XK_0,      spawn,          {.v = volume_mute_command } },
+    { MODKEY|ControlMask,           XK_minus,  spawn,          {.v = volume_down_command } },
+    { MODKEY|ControlMask,           XK_equal,  spawn,          {.v = volume_up_command } },
     { MODKEY,                       XK_b,      togglebar,      {0} },
     { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
     { MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
     { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
     { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
     { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-    { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-    { MODKEY|ShiftMask,             XK_h,      setsmfact,      {.f = -0.05} },
     { MODKEY|ShiftMask,             XK_l,      setsmfact,      {.f = +0.05} },
     { MODKEY,                       XK_Return, zoom,           {0} },
     { MODKEY,                       XK_Tab,    view,           {0} },
@@ -114,7 +118,10 @@ static Button buttons[] = {
     { ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
     { ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
     { ClkWinTitle,          0,              Button2,        zoom,           {0} },
-    { ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+    // Next three lines handle volume.
+    { ClkStatusText,        0,              Button3,        spawn,          {.v = volume_mute_command } },
+    { ClkStatusText,        0,              Button4,        spawn,          {.v = volume_up_command } },
+    { ClkStatusText,        0,              Button5,        spawn,          {.v = volume_down_command } },
     { ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
     { ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
     { ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
