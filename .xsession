@@ -22,11 +22,12 @@ do
 
     # Audio stuff
     MATCHES=$(amixer -D pulse get Master | grep -o -i "\[on\]" | wc -l)
-    VOL=$(awk -F "[][]" '/%/ { print $2 }' <(amixer -D pulse get Master) | tr '\n' ' ')
 
     if [ 0 -eq $MATCHES ]
     then
         VOL="Muted"
+    else
+        VOL=$(awk -F "[][]" '/%/ { print $2 }' <(amixer -D pulse get Master) | tr '\n' ' ')
     fi
 
     OUT=
