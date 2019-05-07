@@ -1,23 +1,15 @@
 #!/bin/sh
 
-OPTIND=1
+TEMP=`getopt -o udm --long up,down,mute -- "$@"`
+eval set -- "$TEMP"
 
-while getopts dmu opt
+while true
 do
-    case "$opt" in
-        d)
-            amixer -D pulse set Master 2%-
-            ;;
-        u)
-            amixer -D pulse set Master 2%+
-            ;;
-        m)
-            amixer -D pulse set Master 1+ toggle
-            ;;
-        \?)
-            exit 0
-            ;;
+    case "$1" in
+        -d|--down) amixer -D pulse set Master 2%- ;;
+        -u|--down) amixer -D pulse set Master 2%+ ;;
+        -m|--mute) amixer -D pulse set Master 1+ toggle ;;
+        --) break ;;
     esac
+    shift
 done
-
-shift $((OPTINID-1))

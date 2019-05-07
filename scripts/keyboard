@@ -1,0 +1,14 @@
+#!/bin/bash
+
+TEMP=`getopt -o qw --long qwerty,workman -- "$@"`
+eval set -- "$TEMP"
+
+while true
+do
+    case "$1" in
+        -q|--qwerty) setxkbmap us && echo "Keyboard set to QWERTY" ;;
+        -w|--workman) setxkbmap us workman  && echo "Keyboard set to Workman" ;;
+        --) break ;;
+    esac
+    shift
+done

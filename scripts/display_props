@@ -1,29 +1,19 @@
 #!/bin/sh
 
-# reset the getopts in case it was used
-OPTIND=1
+TEMP=`getopt -o s:r: --long size,rate: -- "$@"`
+eval set -- "$TEMP"
 
 ARGS=""
 
-while getopts s:r: opt
+while true
 do
-    case "$opt" in
-        s)
-            ARGS="$ARGS -s $OPTARG"
-            ;;
-        r)
-            ARGS="$ARGS -r $OPTARG"
-            ;;
-        \?)
-            exit 0
-            ;;
-        :)
-            exit 0
-            ;;
+    case "$1" in
+        -s|--size) ARGS="$ARGS-s $2 " ;;
+        -r|--rate) ARGS="$ARGS-r $2 " ;;
+        --) break ;;
     esac
+    shift
 done
-
-shift $((OPTIND-1))
 
 # if there are arguments change the display
 if [ ${#ARGS} -ne 0 ]
@@ -33,7 +23,7 @@ then
     # change the display settings
     xrandr $ARGS
     # turn vsync back on
-    compton --daemon &
+    compton &
     # restart the background
     $HOME/.fehbg
 fi

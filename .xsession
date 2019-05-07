@@ -18,7 +18,16 @@ do
     IP=$(for i in `ip r`; do echo $i; done | grep -A 1 src | tail -n1)
     DATE_TIME=$(date +%Z\=%Y-%m-%d\ %T)
     TEMP="$(($(cat /sys/class/thermal/thermal_zone0/temp) / 1000))C"
-    VOL=$(awk -F "[][]" '/%/ { print $2 }' <(amixer -D pulse get Master))
+    KEEB=$(setxkbmap -print | grep xkb_symbols | awk '{print $4}' | awk -F "+" '{print $2}')
+
+    # Audio stuff
+    MATCHES=$(amixer -D pulse get Master | grep -o -i "\[on\]" | wc -l)
+    VOL=$(awk -F "[][]" '/%/ { print $2 }' <(amixer -D pulse get Master) | tr '\n' ' ')
+
+    if [ 0 -eq $MATCHES ]
+    then
+        VOL="Muted"
+    fi
 
     OUT=
 
@@ -27,7 +36,7 @@ do
         OUT=" $IP"
     fi
 
-    OUT="$OUT Volume:$VOL CPU:$TEMP $DATE_TIME "
+    OUT="$OUT $KEEB Volume:$VOL CPU:$TEMP $DATE_TIME "
 
     xsetroot -name "$OUT"
     sleep 0.1s
