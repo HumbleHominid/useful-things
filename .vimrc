@@ -13,9 +13,6 @@ syntax on
 " For loading plugins
 filetype plugin indent on
 
-" Some sequrity idk
-set modelines=0
-
 " Display cursor position on last line of screen
 set ruler
 
@@ -32,7 +29,7 @@ set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 set list
 
 " Visualize tabs and newlines
-set listchars=tab:→\ ,trail:∙,nbsp:•
+set listchars=tab:→\ ,trail:∙,nbsp:·
 
 " Colors
 highlight Visual ctermbg=0 ctermfg=7
